@@ -1,12 +1,18 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
+import com.capgemini.wsb.fitnesstracker.exception.api.NotFoundException;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import com.capgemini.wsb.fitnesstracker.user.api.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -48,7 +54,37 @@ class UserController {
 
             return userService.createUser(userMapper.toEntity(userDto));
         } catch (Exception e) {
-            throw new InterruptedException(e.getMessage());
+            throw  new InterruptedException(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUserById(id);
+    }
+
+    @GetMapping("/email")
+    public List<UserEmailDto> searchUserByEmail(@RequestParam(name = "email", required = true) String email) {
+        return userService.findUserContainingEmail(email)
+                .stream()
+                .map(userMapper::toEmailDto)
+                .toList();
+    }
+
+    @GetMapping("/older/{time}")
+    public List<UserDetailsDto> searchUserByDate(@PathVariable("time") String time) {
+        return userService.findUserOlderThen(time)
+                .stream()
+                .map(userMapper::toDetailsDto)
+                .toList();
+    }
+
+    @PutMapping("/{userId}")
+    public UserDetailsDto searchUserByDate(@RequestBody UserDto user, @PathVariable("userId") Long userId) {
+        return userService.updateUser(userId, user)
+                .map(userMapper::toDetailsDto)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
 }

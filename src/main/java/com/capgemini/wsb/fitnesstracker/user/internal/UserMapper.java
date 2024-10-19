@@ -3,6 +3,8 @@ package com.capgemini.wsb.fitnesstracker.user.internal;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 class UserMapper {
 
@@ -35,6 +37,12 @@ class UserMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getBirthdate(),
+                user.getEmail());
+    }
+
+    public UserEmailDto toEmailDto(User user) {
+        return new UserEmailDto(
+                user.getId(),
                 user.getEmail());
     }
 }

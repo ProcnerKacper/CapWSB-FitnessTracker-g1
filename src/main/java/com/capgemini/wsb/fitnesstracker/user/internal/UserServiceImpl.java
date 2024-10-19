@@ -1,12 +1,14 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.user.api.UserNotFoundException;
 import com.capgemini.wsb.fitnesstracker.user.api.UserProvider;
 import com.capgemini.wsb.fitnesstracker.user.api.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +34,17 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
+    public void deleteUserById(final Long userId) {
+        userRepository.deleteUserById(userId);
+    }
+
+    @Override
     public Optional<User> getUserByEmail(final String email) {
         return userRepository.findByEmail(email);
+    }
+    @Override
+    public List<User> findUserContainingEmail(final String email) {
+        return userRepository.findUserContainingEmail(email);
     }
 
     @Override
@@ -41,4 +52,18 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    @Override
+    public List<User> findUserOlderThen(String time) {
+        return userRepository.findUserOlderThen(time);
+    }
+
+    public Optional<User> updateUser(Long userId, UserDto userdata) {
+        return userRepository.findById(userId).map(user -> {
+            user.setFirstName(userdata.firstName());
+            user.setLastName(userdata.lastName());
+            user.setEmail(userdata.email());
+            user.setBirthdate(userdata.birthdate());
+            return userRepository.save(user);
+        });
+    }
 }
