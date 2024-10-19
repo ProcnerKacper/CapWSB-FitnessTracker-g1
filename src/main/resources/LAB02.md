@@ -1,7 +1,8 @@
 # LABORATORIUM 02
 
-Zadania proszę realizować zgodnie z własnym tempem. Zadania mają pomóc w przygotowaniu do Egzaminu oraz zrozumieniu Frameworka Spring.
-Termin upływa po 7 dniach od rozpoczęciu laboratorium.
+Zadania proszę realizować zgodnie z własnym tempem. Zadania mają pomóc w przygotowaniu do Egzaminu oraz zrozumieniu Frameworka Spring. Zadanie proszę przesłać na własne repozytorium.
+Termin upływa po 14 dniach od rozpoczęciu laboratorium.
+
 ## ZADANIE 1. Sieciowe API do operacji typu CRUD na klientach
 
 ### Potrzeba biznesowa
@@ -19,7 +20,7 @@ serwisu FitnessTracker:
 Stworzone API powinno pozwalać na:
 
 - [ ] wylistowanie podstawowych informacji o wszystkich użytkownikach zapisanych w systemie (tylko ID oraz nazwa
-  uzytkownika)
+  użytkownika)
 - [ ] pobranie szczegółów dotyczących wybranego użytkownika (dowolny parametr: ID/imię & nazwisko/datę urodzenia/ e-mail)
 - [ ] utworzenie nowego użytkownika
 - [ ] usunięcie użytkownika (konkretny, np. konkretny ID danego uzytkownika)
@@ -35,6 +36,7 @@ Stworzone API powinno pozwalać na:
   domyślne, pobierające dane za pomocą `findAll()` oraz przetwarzające je za pomocą strumieni (`Stream`). Przykład
   znaleźć można w `UserRepository`
 - [ ] rozwiązanie powinno spełniać zasady SOLID
+- [ ] testy integracyjne powinny poprawnie się wykonywać UserApiIntegrationTest
 - [ ] (OPCJONALNIE) rozwiązanie powinno być pokryte testami jednostkowymi (>80%)
 - [ ] rozwiązanie powinno być odpowiednio zhermetyzowane (nie udostępniać funkcjonalności pozostałym pakietom programu)
 - [ ] kod powinien być odpowiednio udokumentowany za pomocą JavaDoc

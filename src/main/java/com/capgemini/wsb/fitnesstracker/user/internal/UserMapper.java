@@ -14,6 +14,7 @@ class UserMapper {
                            user.getEmail());
     }
 
+
     User toEntity(UserDto userDto) {
         return new User(
                         userDto.firstName(),
@@ -22,4 +23,18 @@ class UserMapper {
                         userDto.email());
     }
 
+    UserSimpleDto toSimpleDto(User user) {
+        return new UserSimpleDto(user.getId(),
+                           user.getFirstName(),
+                           user.getLastName());
+    }
+
+    UserDetailsDto toDetailsDto(User user) {
+        return new UserDetailsDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getBirthdate(),
+                user.getEmail());
+    }
 }
